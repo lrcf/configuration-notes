@@ -5,7 +5,7 @@ This guide will cover:
 * How to install `putty-cac` and `wsl-ssh-pageant` (necessary for authentication)
 * Export of the public key of the certificate to `ssh-rsa` using Pageant
 
-> ***⚠️ The official TPM provider <u>does not</u> support `Curve25519` and there’ve been instances of [broken implementation of generating RSA keys on TPM chips in the past.](https://www.bleepingcomputer.com/news/security/tpm-chipsets-generate-insecure-rsa-keys-multiple-vendors-affected/)***
+> ***⚠️ The official TPM provider <u>does not</u> support `Curve25519` and there’ve been instances of [broken implementation of generating RSA keys on TPM chips in the past.](https://www.bleepingcomputer.com/news/security/tpm-chipsets-generate-insecure-rsa-keys-multiple-vendors-affected/)** Before proceeding, always make sure your system and drivers are up to date.*
 > 
 > *That being said, hardware authentication shall still be prefered over software authentication. In majority of cases, you’ll be more secure by authenticating using TPM but always consider the attack factor when deciding between TPM and file-based authentication.*
 >
