@@ -5,6 +5,12 @@ This guide will cover:
 * How to install `putty-cac` and `wsl-ssh-pageant` (necessary for authentication)
 * Export of the public key of the certificate to `ssh-rsa` using Pageant
 
+> ***⚠️ The official TPM provider <u>does not</u> support `Curve25519` and there’ve been instances of [broken implementation of generating RSA keys on TPM chips in the past.](https://www.bleepingcomputer.com/news/security/tpm-chipsets-generate-insecure-rsa-keys-multiple-vendors-affected/)***
+> 
+> *That being said, hardware authentication shall still be prefered over software authentication. In majority of cases, you’ll be more secure by authenticating using TPM but always consider the attack factor when deciding between TPM and file-based authentication.*
+>
+> *From solely security standpoint (disregarding convenience), it’s recommended using hardware key that supports stronger cryptography instead of the insecure TPM chip.*
+
 *You will need admin permissions to successfully issue a key. Pro version of Windows might be required.*
 
 *This guide assumes you have [Chocolatey](https://chocolatey.org/) installed on your machine.*
@@ -18,9 +24,7 @@ This guide will cover:
 	* **Status** — “The TPM is ready for use.”
 	* **TPM Manufacturer Version** — should have a version listed.
 
-> For your security, you can opt to clear your TPM using the **“Clear TPM…”** option located under the **“Actions”** window on the right side.
->
-> A computer restart will be required.
+> For your security, you can opt to clear your TPM using the **“Clear TPM…”** option located under the **“Actions”** window on the right side. A computer restart will be required.
 
 If the system reports that the TPM is not ready or enabled, you might have an option to enable the TPM in computer board (BIOS/UEFI) menu.
 
