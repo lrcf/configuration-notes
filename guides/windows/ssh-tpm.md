@@ -9,7 +9,7 @@ This guide will cover:
 > 
 > *That being said, hardware authentication shall still be prefered over software authentication. In majority of cases, you’ll be more secure by authenticating using TPM but always consider the attack factor when deciding between TPM and file-based authentication.*
 >
-> *From solely security standpoint (disregarding convenience), it’s recommended using hardware key that supports stronger cryptography instead of the insecure TPM chip.*
+> *From solely security standpoint (disregarding convenience), it’s recommended to use a hardware key that supports stronger cryptography instead of an insecure TPM chip.*
 
 *You will need admin permissions to successfully issue a certificate. Pro version of Windows might be required.*
 
