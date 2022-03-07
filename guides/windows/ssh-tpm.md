@@ -143,7 +143,7 @@ This script will start up Pageant and the bridge with the correct parameters and
 4. Add the public key to `~/.ssh/authorized_keys` of the target machines or to your favourite services.
 	* Here’s a quick link to manage the keys on your GitHub profile: [`https://github.com/settings/keys`](https://github.com/settings/keys)
 
-### 7. Configure Pageant for Windows’s OpenSSH
+### 7. Configure Pageant for PowerShell’s OpenSSH
 
 Open PowerShell <u>**as administrator**</u> and type in the following command:
 
@@ -163,7 +163,19 @@ Host *
 #### Additional resources:
 
 * [`[System.Environment]::SetEnvironmentVariable`][1]
-* [`IdentityAgent` configuration property on SSH](https://man.openbsd.org/ssh_config.5#IdentityAgent)
+* [`IdentityAgent` configuration property in SSH](https://man.openbsd.org/ssh_config.5#IdentityAgent)
+
+### 8. Tell Git to use PowerShell’s OpenSSH
+
+Open PowerShell and type in the following command:
+
+```bat
+git config --global core.sshCommand "C:/Windows/System32/OpenSSH/ssh.exe"
+```
+
+#### Additional resources:
+
+* [`core.sshCommand` configuration property in Git](https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresshCommand)
 
 ### Testing the configuration
 
@@ -178,4 +190,4 @@ If the authentication is successful, then congratulations, you’ve done everyth
 * Binxing Wang — “Secure SSH Access with TPM2-Backed Key” [\[imbushuo.net\]](https://imbushuo.net/blog/archives/1002/) ([archived][2])
 
 [1]: https://docs.microsoft.com/en-us/dotnet/api/system.environment.setenvironmentvariable?view=net-6.0#system-environment-setenvironmentvariable(system-string-system-string-system-environmentvariabletarget)
-[2]: http://web.archive.org/web/20210906062737/https://imbushuo.net/blog/archives/1002/
+[2]: https://web.archive.org/web/20210906062737/https://imbushuo.net/blog/archives/1002/
