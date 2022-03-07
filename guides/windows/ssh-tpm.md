@@ -106,37 +106,20 @@ puTTY will create items on your start menu. You can freely remove them by follow
 
 <h3 id="#4-configure-to-start-pageant-and-the-bridge-on-sign-in">4. Configure to start Pageant and the bridge on sign in</h3>
 
-1. Open `taskschd.msc` (you will be asked for admin permissions)
-2. Under the **“Actions”** window on the right side, click on **“Create Task…”**
-3. A new window will appear, configure the task with the following settings:
-	* **“General”** tab:
-		* **Name** — Set to whatever you like, for easier identification, you can set it to “Pageant”.
-		* Select **“Run only when the user is logged on”**
-		* <u>Make sure **“Run with highest privileges”** is unselected.</u>
-		* **“Configure for”** — “Windows 10”
-	* **“Triggers”** tab:
-		* Click on the **“New…”** on the bottom side of the window.
-		* **“Begin the Task”** — “At log on”
-		* **“Any user”**
-		* **“Enabled”** under “Advanced settings”
-		* Click on **“OK”**.
-	* **“Actions”** tab:
-		* Click on the **“New…”** on the bottom side of the window.
-		* **“Action”** — “Start a program”
-		* **“Program/script”** — add these two programs *in the following order* (you’ll have to add them one by one):
-			1. `C:\ProgramData\chocolatey\bin\wsl-ssh-pageant-gui.exe -systray -winssh ssh-pageant`
-			2. `"C:\Program Files\PuTTY\pageant.exe"`
-		* Click on **“OK”**, and when asked whether a specified program has arguments, click on **“Yes”**.
-	* **“Conditions”** tab:
-		* <u>**Disable**</u> all conditions.
-	* **“Settings”** tab – check <u>only</u> the following checkboxes:
-		* **“Allow task to be run on demand”**
-		* **“If the running task does not end when requested, force it to stop”**
-		* On the bottom menu, select **“Do not start a new instance”**.
-		* <u>Leave everything else unchecked.</u>
-4. Click on **“OK”**.
-5. If you have any instances of Pageant or the bridge opened, <u>close them.</u>
-6. Once the task has been created, select the task and under the “Selected Item” menu, click on **“Run”**.
+Open PowerShell <u>**as administrator**</u> and paste the following script:
+
+```powershell
+@(
+	"C:\ProgramData\chocolatey\bin\wsl-ssh-pageant-gui.exe -systray -winssh ssh-pageant";
+	'"C:\Program Files\PuTTY\pageant.exe"'
+) | foreach {
+	$startupPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+	New-ItemProperty -Path $startupPath -Name (Split-Path $_ -LeafBase) -Value $_
+	Invoke-Expression "&$_"
+}
+```
+
+This script will start up Pageant and the bridge with the correct parameters and ensures the system will start both of them up as well.
 
 ### 5. Configure Pageant to accept smart card certificates
 
