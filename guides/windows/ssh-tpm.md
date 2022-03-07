@@ -124,9 +124,10 @@ puTTY will create items on your start menu. You can freely remove them by follow
 	* **“Actions”** tab:
 		* Click on the **“New…”** on the bottom side of the window.
 		* **“Action”** — “Start a program”
-		* **“Program/script”** — `C:\ProgramData\chocolatey\bin\wsl-ssh-pageant-gui.exe -systray -winssh ssh-pageant`
-		* You will be asked whether the program you specified has arguments, click on **“Yes”**.
-		* Repeat the steps above, but this time for `"C:\Program Files\PuTTY\pageant.exe"`.
+		* **“Program/script”** — add these two programs *in the following order* (you’ll have to add them one by one):
+			1. `C:\ProgramData\chocolatey\bin\wsl-ssh-pageant-gui.exe -systray -winssh ssh-pageant`
+			2. `"C:\Program Files\PuTTY\pageant.exe"`
+		* Click on **“OK”**, and when asked whether the program specified above has arguments, click on **“Yes”**.
 	* **“Conditions”** tab:
 		* <u>**Disable**</u> all conditions.
 	* **“Settings”** tab – check <u>only</u> the following checkboxes:
