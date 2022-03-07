@@ -5,13 +5,13 @@ This guide will cover:
 * How to install `putty-cac` and `wsl-ssh-pageant` (necessary for authentication)
 * Export of the public key of the certificate to `ssh-rsa` using Pageant
 
-> ***⚠️ The official TPM provider <u>does not</u> support `Curve25519` and there’ve been instances of [broken implementation of generating RSA keys on TPM chips in the past.](https://www.bleepingcomputer.com/news/security/tpm-chipsets-generate-insecure-rsa-keys-multiple-vendors-affected/)** Before proceeding, always make sure your system and drivers are up to date.*
+> **⚠️ The official TPM provider <u>*does not*</u> support `Curve25519` and there’ve been instances of [broken implementation of generating RSA keys on TPM chips in the past.](https://www.bleepingcomputer.com/news/security/tpm-chipsets-generate-insecure-rsa-keys-multiple-vendors-affected/)** Before proceeding, always make sure your system and drivers are up to date.
 > 
-> *That being said, hardware authentication shall still be prefered over software authentication. In majority of cases, you’ll be more secure by authenticating using TPM but always consider the attack factor when deciding between TPM and file-based authentication.*
+> That being said, hardware authentication shall still be prefered over software authentication. In majority of cases, you’ll be more secure by authenticating using TPM but always consider the attack factor when deciding between TPM and file-based authentication.
 >
-> *From solely security standpoint (disregarding convenience), it’s recommended to use a hardware key that supports stronger cryptography instead of an insecure TPM chip.*
+> From solely security standpoint (disregarding convenience), it’s recommended to use a hardware key that supports stronger cryptography instead of an insecure TPM chip.
 
-*You will need admin permissions to successfully issue a certificate. Pro version of Windows might be required.*
+*You will need admin permissions to successfully issue and install a certificate. Pro version of Windows might be required to create and use a smart key.*
 
 *This guide assumes you have [Chocolatey](https://chocolatey.org/) installed on your machine.*
 
@@ -74,7 +74,6 @@ New-SelfSignedCertificate `
 * **`-KeyAlgorithm RSA -KeyLength 4096`**
 	* Supported algorithms depend on the TPM chip embedded on your computer.
 	* If creation of the certificate fails with the `SCARD_E_UNSUPPORTED_FEATURE` error code, the TPM chip on your computer <u>doesn’t support 4096-bit RSA.</u> You’ll have to generate a 2048-bit RSA key by replacing `4096` with `2048`.
-	* As of December 2020, there has been no known implementation of `Curve25519` on TPM. ([source](https://twitter.com/mjg59/status/1341146141220454400))
 * **`-Provider`** — This string ensures the key will be stored in the smart card on TPM we just created.
 * **`-CertStoreLocation`** — Specifies that this certificate will be created for _the current user_ and stored under _current user._ For security reasons, creating and storing a key for each user of the machine is strongly recommended.
 
@@ -127,7 +126,7 @@ puTTY will create items on your start menu. You can freely remove them by follow
 		* **“Program/script”** — add these two programs *in the following order* (you’ll have to add them one by one):
 			1. `C:\ProgramData\chocolatey\bin\wsl-ssh-pageant-gui.exe -systray -winssh ssh-pageant`
 			2. `"C:\Program Files\PuTTY\pageant.exe"`
-		* Click on **“OK”**, and when asked whether the program specified above has arguments, click on **“Yes”**.
+		* Click on **“OK”**, and when asked whether a specified program has arguments, click on **“Yes”**.
 	* **“Conditions”** tab:
 		* <u>**Disable**</u> all conditions.
 	* **“Settings”** tab – check <u>only</u> the following checkboxes:
@@ -178,8 +177,22 @@ Host *
 	IdentityAgent SSH_AUTH_SOCK
 ```
 
+#### Additional resources:
+
+* [`[System.Environment]::SetEnvironmentVariable`][1]
+* [`IdentityAgent` configuration property on SSH](https://man.openbsd.org/ssh_config.5#IdentityAgent)
+
 ### Testing the configuration
 
 Now to test your configuration, try to sign in to your target machine using `ssh <target>`. (In case of GitHub: `ssh git@github.com` – you will see your username in the output.)
 
 If the authentication is successful, then congratulations, you’ve done everything right and now you are successfully signing in using the SSH key stored on your machine’s TPM.
+
+---
+
+#### Acknowledgements
+
+* Binxing Wang — “Secure SSH Access with TPM2-Backed Key” [\[imbushuo.net\]](https://imbushuo.net/blog/archives/1002/) ([archived][2])
+
+[1]: https://docs.microsoft.com/en-us/dotnet/api/system.environment.setenvironmentvariable?view=net-6.0#system-environment-setenvironmentvariable(system-string-system-string-system-environmentvariabletarget)
+[2]: http://web.archive.org/web/20210906062737/https://imbushuo.net/blog/archives/1002/
