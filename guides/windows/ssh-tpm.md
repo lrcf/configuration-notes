@@ -45,7 +45,7 @@ tpmvscmgr create `
 	/attestation AIK_AND_CERT
 ```
 
-* **`/name`** — This name will be displayed under _Device Manager._ (`devmgmt.msc`)
+* **`/name`** — This name will be displayed in _Device Manager._ (`devmgmt.msc`)
 * **`/attestation AIK_AND_CERT`** — Your smart card will be attestated by Microsoft that your chip is *truly* hardware-bound. *(requires internet connection)*
 	* Alternatively, `/attestation AIK_ONLY` can be used in place of the argument.
 
