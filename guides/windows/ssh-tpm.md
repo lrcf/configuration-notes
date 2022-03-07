@@ -11,7 +11,7 @@ This guide will cover:
 >
 > *From solely security standpoint (disregarding convenience), it’s recommended using hardware key that supports stronger cryptography instead of the insecure TPM chip.*
 
-*You will need admin permissions to successfully issue a key. Pro version of Windows might be required.*
+*You will need admin permissions to successfully issue a certificate. Pro version of Windows might be required.*
 
 *This guide assumes you have [Chocolatey](https://chocolatey.org/) installed on your machine.*
 
@@ -54,11 +54,11 @@ tpmvscmgr create `
 * [`tpmvscmgr` command reference](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tpmvscmgr)
 * [Further documentation for `tpmvscmgr`](https://docs.microsoft.com/en-us/windows/security/identity-protection/virtual-smart-cards/virtual-smart-card-tpmvscmgr)
 
-### 2. Generate a new certificate
+### 2. Generate a new SSH certificate
+
+> *It’s always recommended to generate a new SSH certificate instead of re-using an existing one.* <!-- TODO: However if using a new certificate isn’t an option for you, here’s how you can store an existing certificate to TPM. -->
 
 Open PowerShell <u>**as administrator**</u> and type in the following command:
-
-<!-- Test E256? -->
 
 ```powershell
 New-SelfSignedCertificate `
