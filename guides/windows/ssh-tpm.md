@@ -123,7 +123,7 @@ This script will start up Pageant and the bridge with the correct parameters and
 
 ### 5. Configure Pageant to accept smart card certificates
 
-*Pageant and the bridge should be now running if you have started [the scheduled task.](#4-configure-to-start-pageant-and-the-bridge-on-sign-in)*
+*Pageant and the bridge should be now running if you have [run the startup script.](#4-configure-to-start-pageant-and-the-bridge-on-sign-in)*
 
 1. On the system tray menu, right click on the Pageant icon.
 2. Enable the following options:
@@ -134,7 +134,7 @@ This script will start up Pageant and the bridge with the correct parameters and
 
 ### 6. Import certificate to Pageant and export as `ssh-rsa`
 
-*Pageant and the bridge should be now running if you have started [the scheduled task.](#4-configure-to-start-pageant-and-the-bridge-on-sign-in)*
+*Pageant and the bridge should be now running if you have [run the startup script.](#4-configure-to-start-pageant-and-the-bridge-on-sign-in)*
 
 1. Once again on the Pageant menu, click on **“View Keys & Certs”**.
 2. Select your certificate here.
