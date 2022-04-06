@@ -1,0 +1,19 @@
+name: "Restrict contributions to collaborators"
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+jobs:
+  restrict-contributions:
+    name: "Restrict contributions to collaborators"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@9ac08808f993958e9de277fe43a64532a609130e
+        with:
+          script: |
+            github.rest.interactions.setRestrictionsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              limit: "collaborators_only",
+              expiry: "six_months",
+            })
