@@ -3,6 +3,7 @@ on:
   schedule:
     - cron: "0 0 1 * *"
   workflow_dispatch:
+permissions: {}
 jobs:
   restrict-contributions:
     name: "Restrict contributions to collaborators"
@@ -10,6 +11,7 @@ jobs:
     steps:
       - uses: actions/github-script@9ac08808f993958e9de277fe43a64532a609130e
         with:
+          github-token: ${{secrets.GH_ACCESS_TOKEN}}
           script: |
             github.rest.interactions.setRestrictionsForRepo({
               owner: context.repo.owner,
